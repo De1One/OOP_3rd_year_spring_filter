@@ -11,12 +11,14 @@ import java.util.stream.Collectors;
 
 @Configuration
 public class Config {
-
+    @Bean
+    public ObjectMapper getObjectMapper(){
+        return new ObjectMapper();
+    }
     @Bean
     public List<Person> openGenerated(){
-        ObjectMapper objectMapper = new ObjectMapper();
         try{
-            return objectMapper.readValue(new File("src/main/resources/generated.json"),new TypeReference<List<Person>>(){ });
+            return getObjectMapper().readValue(new File("src/main/resources/generated.json"),new TypeReference<List<Person>>(){ });
         }
         catch (IOException e){
             e.printStackTrace();
